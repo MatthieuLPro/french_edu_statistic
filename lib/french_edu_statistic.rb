@@ -1,0 +1,2 @@
+module FrenchEduStatistic
+end

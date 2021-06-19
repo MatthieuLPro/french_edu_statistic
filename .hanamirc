@@ -1,0 +1,3 @@
+project=french_edu_statistic
+test=rspec
+template=erb
