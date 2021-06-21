@@ -7,4 +7,13 @@ class AdresseRepository < Hanami::Repository
       commune: commune
     ).one
   end
+
+  def find_or_create(adresse)
+    find_by(
+      region_academique: adresse.region_academique,
+      academie: adresse.academie,
+      departement: adresse.departement,
+      commune: adresse.commune
+    ) || create(adresse)
+  end
 end
