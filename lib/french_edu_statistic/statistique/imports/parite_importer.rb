@@ -41,6 +41,7 @@ module FrenchEduStatistic
             @niveaux.each_value do |niveau|
               repository.create(
                 etablissement_id: entity.etablissement.id,
+                annee_id: entity.annee.id,
                 niveau: niveau,
                 nombre_fille: entity[niveau].nombre_fille,
                 nombre_garcon: entity[niveau].nombre_garcon

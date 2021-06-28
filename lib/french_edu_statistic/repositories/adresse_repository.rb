@@ -1,4 +1,8 @@
 class AdresseRepository < Hanami::Repository
+  associations do
+    has_many :etablissements
+  end
+
   def find_by(region_academique:, academie:, departement:, commune:)
     adresses.where(
       region_academique: region_academique,
