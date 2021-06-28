@@ -4,6 +4,7 @@ Hanami::Model.migration do
       primary_key :id
 
       foreign_key :etablissement_id, :etablissements, null: false
+      foreign_key :annee_id, :annees, null: false
       column :niveau, :niveau, null: false
       column :categorie, :categorie, null: false
       column :nombre_eleve, :integer, null: false
