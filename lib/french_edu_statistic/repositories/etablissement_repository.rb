@@ -20,21 +20,22 @@ class EtablissementRepository < Hanami::Repository
     ) || create(etablissement)
   end
 
-  def statistique_parites_for_girls(annee_id, departement)
-    with_statistique_parites(annee_id, departement).sum(statistique_parites[:nombre_fille])
+  def statistique_parites_for_girls(annee_id, departement, niveau)
+    with_statistique_parites(annee_id, departement, niveau).sum(statistique_parites[:nombre_fille])
   end
 
-  def statistique_parites_for_boys(annee_id, departement)
-    with_statistique_parites(annee_id, departement).sum(statistique_parites[:nombre_garcon])
+  def statistique_parites_for_boys(annee_id, departement, niveau)
+    with_statistique_parites(annee_id, departement, niveau).sum(statistique_parites[:nombre_garcon])
   end
 
   private
 
-  def with_statistique_parites(annee_id, departement)
+  def with_statistique_parites(annee_id, departement, niveau)
     @_with_statistique_parites ||= aggregate(:adresse)
                                    .join(:adresse)
                                    .where(adresses[:departement].qualified => departement)
                                    .join(:statistique_parites)
                                    .where(statistique_parites[:annee_id].qualified => annee_id)
+                                   .where(niveau: niveau)
   end
 end

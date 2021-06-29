@@ -7,7 +7,8 @@ root to: 'home#parite'
 
 get '/annees', to: 'annee#index'
 get '/departements', to: 'departement#index'
+get '/niveaux', to: 'niveau#index'
 
 namespace 'statistique' do
-  post 'parite', to: 'statistique#parite'
+  get 'parite', to: 'statistique#parite'
 end
