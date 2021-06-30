@@ -8,7 +8,7 @@ const createSelectOptions = (id, data) => {
   }
 }
 
-const getAnnees = () => {
+const fetchAnnees = () => {
   fetch('/annees')
   .then(response => response.text())
   .then(data => {
@@ -16,7 +16,7 @@ const getAnnees = () => {
   })
 }
 
-const getDepartements = () => {
+const fetchDepartements = () => {
   fetch('/departements')
   .then(response => response.text())
   .then(data => {
@@ -24,7 +24,7 @@ const getDepartements = () => {
   })
 }
 
-const getNiveaux = () => {
+const fetchNiveaux = () => {
   fetch('/niveaux')
   .then(response => response.text())
   .then(data => {
@@ -32,7 +32,7 @@ const getNiveaux = () => {
   })
 }
 
-const getStatistiqueParite = (annee_id, departement, niveau) => {
+const fetchStatistiqueParite = (annee_id, departement, niveau) => {
   fetch(`/statistique/parite?annee_id=${annee_id}&departement=${departement}&niveau=${niveau}`)
     .then(response => response.text())
     .then(data => {
@@ -42,14 +42,14 @@ const getStatistiqueParite = (annee_id, departement, niveau) => {
     })
 }
 
-getAnnees();
-getDepartements();
-getNiveaux();
+fetchAnnees();
+fetchDepartements();
+fetchNiveaux();
 
 document
 .getElementById("submit-statistique-parite")
 .addEventListener('click', function() {
-  getStatistiqueParite(
+  fetchStatistiqueParite(
     document.getElementById('annee-select').value,
     document.getElementById('departement-select').value,
     document.getElementById('niveau-select').value
