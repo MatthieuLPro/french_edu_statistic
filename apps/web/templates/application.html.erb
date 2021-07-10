@@ -6,7 +6,8 @@
     <%= stylesheet 'home' %>
   </head>
   <body>
+    <%= javascript 'https://code.highcharts.com/maps/highmaps.js', 'https://code.highcharts.com/maps/modules/exporting.js', 'https://code.highcharts.com/mapdata/countries/fr/fr-all-all.js', 'application' %>
+    
     <%= yield %>
-    <%= javascript 'application' %>
   </body>
 </html>

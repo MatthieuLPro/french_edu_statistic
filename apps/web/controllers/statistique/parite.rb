@@ -7,23 +7,20 @@ module Web
         params do
           required(:annee_id).filled
           required(:departement).filled
-          required(:niveau).filled
         end
 
         def call(params)
           self.status = 200
-          self.body = fetch_nombre_fille_and_garcon(params[:annee_id], params[:departement], params[:niveau]).to_json
+          self.body = fetch_nombre_fille_and_garcon(params[:annee_id]).to_json
           headers.merge!({ 'X-Custom' => 'OK' })
         end
 
         private
 
-        def fetch_nombre_fille_and_garcon(annee_id, departement, niveau)
+        def fetch_nombre_fille_and_garcon(annee_id)
           repository = EtablissementRepository.new
-          {
-            nombre_fille: repository.statistique_parites_for_girls(annee_id, departement, niveau),
-            nombre_garcon: repository.statistique_parites_for_boys(annee_id, departement, niveau)
-          }
+          statistique_parites = repository.fetch_statistique_parites_by(annee_id)
+          ::Statistique::Serializers::NombreFilleGarcon.new(data: statistique_parites).serialize_fille_garcon_all_levels
         end
       end
     end
