@@ -16,22 +16,4 @@ const fetchAnnees = () => {
   })
 }
 
-// const fetchDepartements = () => {
-//   fetch('/departements')
-//   .then(response => response.text())
-//   .then(data => {
-//     createSelectOptions('departement-select', JSON.parse(data));
-//   })
-// }
-
-// const fetchNiveaux = () => {
-//   fetch('/niveaux')
-//   .then(response => response.text())
-//   .then(data => {
-//     createSelectOptions('niveau-select', JSON.parse(data));
-//   })
-// }
-
 fetchAnnees();
-// fetchDepartements();
-// fetchNiveaux();

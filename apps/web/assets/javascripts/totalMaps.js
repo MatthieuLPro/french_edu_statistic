@@ -12,14 +12,9 @@ const fetchStatistiqueParite = (annee_id) => {
       .then(data => {
         const result = JSON.parse(data);
         totalBoyChart.series[0].update({
-            data: createMapData(result, 'nombre_garcon')
+            data: createGenderRepartitionData(result, ['nombre_garcon', 'nombre_fille', 'nombre_total'])
         }, false);
         totalBoyChart.redraw();
-
-        totalFilleChart.series[0].update({
-            data: createMapData(result, 'nombre_fille')
-        }, false);
-        totalFilleChart.redraw();
     })
 }
 
@@ -30,13 +25,54 @@ const totalBoyChart = Highcharts.mapChart('container-garcon', {
   },
 
   title: {
-      text: 'Répartition géographique des collégiens'
+      text: 'Répartition par genre des collégiens'
   },
 
   subtitle: {
-      text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/fr/fr-all-all.js">France, admin2</a>'
+      text: 'Source: <a href="https://data.education.gouv.fr/explore/dataset/fr-en-college-effectifs-niveau-sexe-lv/table/?disjunctive.rentree_scolaire&disjunctive.region_academique&disjunctive.academie&disjunctive.departement&disjunctive.commune&disjunctive.numero_college&disjunctive.denomination_principale&disjunctive.patronyme&disjunctive.secteur&disjunctive.rep&disjunctive.rep_plus">Education.gouv</a>'
   },
 
+  colorAxis: {
+    dataClasses: [{
+        to: -1501,
+        color: '#C40401',
+        name: 'Victoire totale - Fille'
+    },{
+        from: -1500,
+        to: -1001,
+        color: '#ff5754',
+        name: 'Victoire modérée - Fille'
+    }, {
+        from: -1000,
+        to: -501,
+        color: '#fd9290',
+        name: 'Victoire - Fille',
+    }, {
+        from: -500,
+        to: 500,
+        color: '#f1eded',
+        name: 'Egalité',
+    }, {
+        from: 501,
+        to: 1000,
+        color: '#9691ff',
+        name: 'Victoire - Garcon',
+    }, {
+        from: 1001,
+        to: 1500,
+        color: '#5b53ff',
+        name: 'Victoire modérée - Garcon',
+    }, {
+        from: 1501,
+        color: '#0c00ff',
+        name: 'Victoire totale - Garcon',
+    }]
+  },
+
+  legend: {
+    enabled: true
+
+  },
   mapNavigation: {
       enabled: true,
       buttonOptions: {
@@ -44,22 +80,14 @@ const totalBoyChart = Highcharts.mapChart('container-garcon', {
       }
   },
 
-  colorAxis: {
-      min: 0
-  },
-
   series: [{
       data: [],
-      name: 'Collégien',
+      name: 'Différence nombre de garçon et fille',
       states: {
           hover: {
               color: '#BADA55'
           }
       },
-      dataLabels: {
-          enabled: true,
-          format: '{point.name}'
-      }
   }, {
       name: 'Separators',
       type: 'mapline',
@@ -70,50 +98,3 @@ const totalBoyChart = Highcharts.mapChart('container-garcon', {
       enableMouseTracking: false
   }]
 });
-
-const totalFilleChart = Highcharts.mapChart('container-fille', {
-    chart: {
-        map: 'countries/fr/fr-all-all'
-    },
-  
-    title: {
-        text: 'Répartition géographique des collégiennes'
-    },
-  
-    subtitle: {
-        text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/fr/fr-all-all.js">France, admin2</a>'
-    },
-  
-    mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-            verticalAlign: 'bottom'
-        }
-    },
-  
-    colorAxis: {
-        min: 0
-    },
-  
-    series: [{
-        data: [],
-        name: 'Nombre de collégienne dans ce département',
-        states: {
-            hover: {
-                color: '#BADA55'
-            }
-        },
-        dataLabels: {
-            enabled: true,
-            format: '{point.name}'
-        }
-    }, {
-        name: 'Separators',
-        type: 'mapline',
-        data: Highcharts.geojson(Highcharts.maps['countries/fr/fr-all-all'], 'mapline'),
-        color: 'silver',
-        nullColor: 'silver',
-        showInLegend: false,
-        enableMouseTracking: false
-    }]
-  });

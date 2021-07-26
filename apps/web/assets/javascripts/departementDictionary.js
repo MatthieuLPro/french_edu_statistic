@@ -102,16 +102,17 @@ const DEPARTEMENT_DICTIONARY = {
   "GUYANE": 'fr-gf-gf'
 }
 
-const createMapData = (departements, attribute) => {
+const createGenderRepartitionData = (departements, attributes) => {
   return Object.entries(departements).map((departement) => {
     const departementName = departement[0];
-    const departementValue = departement[1][attribute];
-    return setValueToDepartement(departementName, departementValue);
+    const departementValues = attributes.map((attribute) => departement[1][attribute]);
+
+    return setValueToDepartement(departementName, departementValues);
   })
 }
 
-const setValueToDepartement = (departementName, value) => {
-  return [findMapDepartement(departementName), value];
+const setValueToDepartement = (departementName, values) => {
+  return [findMapDepartement(departementName), values[0] - values[1]];
 }
 
 const findMapDepartement = (departementName) => {

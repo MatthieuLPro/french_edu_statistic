@@ -27,9 +27,12 @@ module Statistique
 
       def sum_boyz_and_girlz(data)
         data.transform_values do |datum|
+          nombre_fille = datum.sum { |datum| datum[:nombre_fille] }
+          nombre_garcon = datum.sum { |datum| datum[:nombre_garcon] }
           {
-            nombre_fille: datum.sum { |datum| datum[:nombre_fille] },
-            nombre_garcon: datum.sum { |datum| datum[:nombre_garcon] }
+            nombre_fille: nombre_fille,
+            nombre_garcon: nombre_garcon,
+            nombre_total: nombre_fille + nombre_garcon
           }
         end
       end
