@@ -1,6 +1,7 @@
 Hanami::Model.migration do
   change do
     extension :pg_enum
-    create_enum :secteur, %w[publique prive]
+    drop_enum :categorie
+    create_enum :categorie, %w[lv1 lv2]
   end
 end
