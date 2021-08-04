@@ -16,4 +16,13 @@ const fetchAnnees = () => {
   })
 }
 
+const fetchNiveaux = () => {
+  fetch('/niveaux')
+  .then(response => response.text())
+  .then(data => {
+    createSelectOptions('niveau-select', JSON.parse(data));
+  })
+}
+
 fetchAnnees();
+fetchNiveaux();

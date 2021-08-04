@@ -2,12 +2,13 @@ document
 .getElementById("submit-statistique-parite")
 .addEventListener('click', function() {
   fetchStatistiqueParite(
-    document.getElementById('annee-select').value
+    document.getElementById('annee-select').value,
+    document.getElementById('niveau-select').value,
   )
 })
 
-const fetchStatistiqueParite = (annee_id) => {
-    fetch(`/statistique/parite?annee_id=${annee_id}`)
+const fetchStatistiqueParite = (annee_id, niveau) => {
+    fetch(`/statistique/parite?annee_id=${annee_id}&niveau=${niveau}`)
       .then(response => response.text())
       .then(data => {
         const result = JSON.parse(data);
@@ -25,7 +26,7 @@ const totalBoyChart = Highcharts.mapChart('container-garcon', {
   },
 
   title: {
-      text: 'Répartition par genre des collégiens'
+      text: 'Répartition démographique par genre des collégiens'
   },
 
   subtitle: {

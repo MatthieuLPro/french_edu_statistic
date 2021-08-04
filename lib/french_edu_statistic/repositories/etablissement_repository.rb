@@ -20,6 +20,18 @@ class EtablissementRepository < Hanami::Repository
     ) || create(etablissement)
   end
 
+  def fetch_statistique_parites_by_niveau(annee_id, niveau)
+    etablissements
+      .join(:statistique_parites)
+      .join(:adresse)
+      .where(annee_id: annee_id, niveau: niveau)
+      .select(
+        adresses[:departement],
+        statistique_parites[:nombre_fille],
+        statistique_parites[:nombre_garcon]
+      )
+  end
+
   def fetch_statistique_parites_by(annee_id)
     etablissements
       .join(:statistique_parites)
